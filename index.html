@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
     <style>
@@ -14,4 +15,17 @@
 <body>
     <iframe src="https://script.google.com/macros/s/AKfycbySImyD2S3ahYFffmItSLYgLWFabA0HTF8LiE44A33ZVRQs6ouadHMsUkhTOF_pgJM/exec" allowfullscreen></iframe>
 </body>
+
+<script>
+    // Function to handle messages from the iframe
+    window.addEventListener("message", function(event) {
+      if (event.origin !== "https://example.com") {
+        return; // Ignore messages from unexpected origins
+      }
+
+      // Handle the message from the iframe
+      console.log("Message from iframe:", event.data);
+    });
+  </script>
+  
 </html>
