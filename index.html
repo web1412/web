@@ -1,34 +1,322 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
+    <base target="_top">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap">
     <style>
+      body {
+        font-family: 'Kanit', Arial, sans-serif;
+        background-color: #f9f9f9;
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        text-align: center;
+        padding: 20px;
+        background-color: #4CAF50;
+        color: white;
+        margin: 0;
+        font-weight: 700;
+      }
+      #searchContainer {
+        text-align: center;
+        padding: 10px;
+        margin-bottom: 20px;
+      }
+      #searchInput {
+        width: 80%;
+        padding: 10px;
+        font-size: 20px;
+        border: 1px solid #ddd;
+        border-radius: 9px;
+        font-family: 'Kanit', Arial, sans-serif;
+      }
+      #product-container-wrapper {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        padding: 0 10px;
+        box-sizing: border-box;
+        min-height: 300px;
+      }
+      #product-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+      }
+      .product {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 10px;
+        margin: 10px;
+        display: inline-block;
+        text-align: center;
+        width: 242px;
+        height: 374px;
+        vertical-align: top;
+        box-sizing: border-box;
+        background-color: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.2s;
+        font-family: 'Kanit', Arial, sans-serif;
+      }
+      .product:hover {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      }
+      .product img {
+        max-width: 100%;
+        max-height: 165px;
+        border-bottom: 1px solid #ddd;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+      }
+      .product h2 {
+        font-size: 22px;
+        color: #333;
+        margin: 10px 0;
+        font-weight: 600;
+      }
+      .product p {
+        margin: 5px 0;
+        color: #777;
+      }
+      .product p.price {
+        font-size: 18px;
+        color: #4CAF50;
+        font-weight: 600;
+      }
+      .product p.stock {
+        font-size: 16px;
+        color: #e91e63;
+        font-weight: 600;
+      }
+
+      /* Media Queries สำหรับ Mobile L, M, S */
+      @media (max-width: 1200px) {
         body {
-            overflow: hidden;
-            margin: 0;
+          font-size: 150%;
         }
-        iframe {
-            width: 100%;
-            height: 100vh;
-            border: none;
-            overflow: hidden;
+        h1 {
+          font-size: 150%;
+          padding: 30px;
         }
+        #searchInput {
+          font-size: 30px;
+        }
+        .product {
+          width: calc(242px * 1.5);
+          height: calc(374px * 1.5);
+        }
+        .product h2 {
+          font-size: calc(22px * 1.5);
+        }
+        .product p.price {
+          font-size: calc(18px * 1.5);
+        }
+        .product p.stock {
+          font-size: calc(16px * 1.5);
+        }
+      }
+
+      @media (max-width: 992px) {
+        body {
+          font-size: 150%;
+        }
+        h1 {
+          font-size: 150%;
+          padding: 30px;
+        }
+        #searchInput {
+          font-size: 30px;
+        }
+        .product {
+          width: calc(242px * 1.5);
+          height: calc(374px * 1.5);
+        }
+        .product h2 {
+          font-size: calc(22px * 1.5);
+        }
+        .product p.price {
+          font-size: calc(18px * 1.5);
+        }
+        .product p.stock {
+          font-size: calc(16px * 1.5);
+        }
+      }
+
+      @media (max-width: 768px) {
+        body {
+          font-size: 150%;
+        }
+        h1 {
+          font-size: 150%;
+          padding: 30px;
+        }
+        #searchInput {
+          font-size: 30px;
+        }
+        .product {
+          width: calc(242px * 1.5);
+          height: calc(374px * 1.5);
+        }
+        .product h2 {
+          font-size: calc(22px * 1.5);
+        }
+        .product p.price {
+          font-size: calc(18px * 1.5);
+        }
+        .product p.stock {
+          font-size: calc(16px * 1.5);
+        }
+      }
+
+      @media (max-width: 576px) {
+        body {
+          font-size: 150%;
+        }
+        h1 {
+          font-size: 150%;
+          padding: 30px;
+        }
+        #searchInput {
+          font-size: 30px;
+        }
+        .product {
+          width: calc(242px * 1.5);
+          height: calc(374px * 1.5);
+        }
+        .product h2 {
+          font-size: calc(22px * 1.5);
+        }
+        .product p.price {
+          font-size: calc(18px * 1.5);
+        }
+        .product p.stock {
+          font-size: calc(16px * 1.5);
+        }
+      }
+
+      @media (max-width: 480px) {
+        body {
+          font-size: 150%;
+        }
+        h1 {
+          font-size: 150%;
+          padding: 30px;
+        }
+        #searchInput {
+          font-size: 30px;
+        }
+        .product {
+          width: calc(242px * 1.5);
+          height: calc(374px * 1.5);
+        }
+        .product h2 {
+          font-size: calc(22px * 1.5);
+        }
+        .product p.price {
+          font-size: calc(18px * 1.5);
+        }
+        .product p.stock {
+          font-size: calc(16px * 1.5);
+        }
+      }
+
+      /* Loading Spinner */
+      .loader {
+        border: 16px solid #f3f3f3; /* Light grey */
+        border-top: 16px solid #4CAF50; /* Green */
+        border-radius: 50%;
+        width: 120px;
+        height: 120px;
+        animation: spin 2s linear infinite;
+        margin: auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: none;
+      }
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
     </style>
-</head>
-<body>
-    <iframe id="searchIframe" src="https://script.google.com/macros/s/AKfycbw9a8iBSE9ExTKFUQe1y2DbCO6d_DLXFPfcQJNmtvTDZuQvcA5gECCUo6rBaYGra0-X/exec" allowfullscreen></iframe>
-</body>
+    <script>
+      function loadProducts() {
+        var loader = document.getElementById('loader');
+        loader.style.display = 'block';
+        fetch('https://script.google.com/macros/s/AKfycbxI5CvPHEppNY4B5HzuVhbxeIKPiGUQcX7gGHYcaKsFqSmUQLevfHqO9waX7CAR5ZpZ/exec')
+          .then(response => response.json())
+          .then(data => {
+            displayProducts(data);
+          })
+          .catch(error => console.error('Error:', error));
+      }
 
-<script>
-    window.addEventListener("message", function(event) {
-        if (event.origin !== "https://script.google.com") {
-            return; // Ignore messages from unexpected origins
+      function displayProducts(data) {
+        var loader = document.getElementById('loader');
+        loader.style.display = 'none';
+
+        var container = document.getElementById('product-container');
+        container.innerHTML = '';
+
+        data.forEach(product => {
+          var productDiv = document.createElement('div');
+          productDiv.className = 'product';
+
+          var img = document.createElement('img');
+          img.src = product.image;
+          productDiv.appendChild(img);
+
+          var name = document.createElement('h2');
+          name.textContent = product.name;
+          productDiv.appendChild(name);
+
+          var price = document.createElement('p');
+          price.textContent = 'ราคา ' + product.price + ' ฿';
+          price.className = 'price';
+          productDiv.appendChild(price);
+
+          var stock = document.createElement('p');
+          stock.textContent = 'สินค้า ' + product.stock + ' ชิ้น';
+          stock.className = 'stock';
+          productDiv.appendChild(stock);
+
+          container.appendChild(productDiv);
+        });
+      }
+
+      function searchProducts() {
+        var input, filter, container, productDivs, h2, i, txtValue;
+        input = document.getElementById('searchInput');
+        filter = input.value.toUpperCase();
+        container = document.getElementById('product-container');
+        productDivs = container.getElementsByClassName('product');
+
+        for (i = 0; i < productDivs.length; i++) {
+          h2 = productDivs[i].getElementsByTagName('h2')[0];
+          txtValue = h2.textContent || h2.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            productDivs[i].style.display = "";
+          } else {
+            productDivs[i].style.display = "none";
+          }
         }
-        console.log("Message from iframe:", event.data);
-    });
-    function sendMessageToIframe(message) {
-        var iframe = document.getElementById('searchIframe');
-        iframe.contentWindow.postMessage(message, "https://script.google.com");
-    }
-</script>
+      }
 
+      window.onload = loadProducts;
+    </script>
+  </head>
+  <body>
+    <h1>Product List</h1>
+    <div id="searchContainer">
+      <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="ค้นหาสินค้า...">
+    </div>
+    <div id="product-container-wrapper">
+      <div id="loader" class="loader"></div>
+      <div id="product-container"></div>
+    </div>
+  </body>
 </html>
