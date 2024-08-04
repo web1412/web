@@ -4,16 +4,18 @@
     <style>
         body {
             overflow: hidden;
+            margin: 0; /* To remove any default margin around the body */
         }
         iframe {
-            width: 1000px;
-            height: 2500px;
+            width: 100%;
+            height: 100vh; /* Full viewport height */
             border: none;
+            overflow: hidden; /* To hide any overflowing content */
         }
     </style>
 </head>
 <body>
-    <iframe src="https://script.google.com/macros/s/AKfycbybynBYN6jUVXsL8-GyUAlxuXHeWWWmY6TyXHVgw8_sK0WfBMJX0OoiNrBSbQ0N_xuY/exec" allowfullscreen></iframe>
+    <iframe src="https://script.google.com/macros/s/AKfycby-jbq_M6Rc3NiZ8bqeA2erCTHcp7kyu3PGIIuH8ajcO6yD4KsM6qBbzP75A39hT2hk/exec" allowfullscreen></iframe>
 </body>
 
 <script>
@@ -26,6 +28,6 @@
       // Handle the message from the iframe
       console.log("Message from iframe:", event.data);
     });
-  </script>
-  
+</script>
+
 </html>
