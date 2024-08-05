@@ -360,7 +360,6 @@
           font-size: 30px;
         }
       }
-
       .loader-text {
         display: none;
         text-align: center;
@@ -459,8 +458,25 @@
         fetch('https://script.google.com/macros/s/AKfycbwxk_sFQAyzTOC_xqWaEm3nTTGOq6mOxLGo3qn6jPIump3QyV9QE7OvXP893JGCE-zJ/exec')
           .then(response => response.json())
           .then(data => {
-            // Sort products by stock in descending order
-            data.sort((a, b) => b.stock - a.stock);
+            // Group products by category
+            var productsByCategory = {};
+            data.forEach(product => {
+              var category = product.category || '';
+              if (!productsByCategory[category]) {
+                productsByCategory[category] = [];
+              }
+              productsByCategory[category].push(product);
+            });
+
+            // Sort each category by price and stock
+            for (var category in productsByCategory) {
+              productsByCategory[category].sort((a, b) => {
+                if (a.price === b.price) {
+                  return b.stock - a.stock;
+                }
+                return a.price - b.price;
+              });
+            }
 
             if (JSON.stringify(data) === JSON.stringify(lastLoadedData)) {
               showNotification('สินค้าปัจจุบันคือสินค้าล่าสุดแล้ว');
@@ -469,42 +485,50 @@
               showNotification('สินค้าถูกอัพเดตเข้ามาเพิ่มแล้ว');
             }
 
-            displayProducts(data);
+            displayProducts(productsByCategory);
           })
           .catch(error => console.error('Error:', error));
       }
 
-      function displayProducts(data) {
+      function displayProducts(productsByCategory) {
         var loaderText = document.getElementById('loader-text');
         loaderText.style.display = 'none';
 
         var container = document.getElementById('product-container');
         container.innerHTML = '';
 
-        data.forEach(product => {
-          var productDiv = document.createElement('div');
-          productDiv.className = 'product';
+        for (var category in productsByCategory) {
+          if (category) {
+            var categoryHeader = document.createElement('h2');
+            categoryHeader.textContent = category;
+            container.appendChild(categoryHeader);
+          }
 
-          var img = document.createElement('img');
-          img.src = product.image;
-          productDiv.appendChild(img);
+          productsByCategory[category].forEach(product => {
+            var productDiv = document.createElement('div');
+            productDiv.className = 'product';
 
-          var name = document.createElement('h2');
-          name.textContent = product.name;
-          productDiv.appendChild(name);
+            var img = document.createElement('img');
+            img.src = product.image;
+            productDiv.appendChild(img);
 
-          var price = document.createElement('p');
-          price.textContent = 'ราคา ' + product.price + ' ฿';
-          price.className = 'price';
-          productDiv.appendChild(price);
+            var name = document.createElement('h2');
+            name.textContent = product.name;
+            productDiv.appendChild(name);
 
-          var stock = document.createElement('p');
-          stock.textContent = 'สินค้า ' + product.stock + ' ชิ้น';
-          stock.className = 'stock';
-          productDiv.appendChild(stock);
+            var price = document.createElement('p');
+            price.textContent = 'ราคา ' + product.price + ' ฿';
+            price.className = 'price';
+            productDiv.appendChild(price);
 
-          container.appendChild(productDiv);
-        });
+            var stock = document.createElement('p');
+            stock.textContent = 'สินค้า ' + product.stock + ' ชิ้น';
+            stock.className = 'stock';
+            productDiv.appendChild(stock);
+
+            container.appendChild(productDiv);
+          });
+        }
       }
 
       function searchProducts() {
